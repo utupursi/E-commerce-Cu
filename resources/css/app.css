@@ -1,0 +1,101 @@
+.has-error label {
+    color: red;
+}
+
+
+.has-error input {
+    border: 1px solid red !important;
+
+}
+
+.has-error input:focus {
+    border: 1px solid red !important;
+}
+
+.help-block {
+    color: red;
+}
+
+.alert-success {
+    color: #1d643b;
+    background-color: #d7f3e3;
+    border-color: #c7eed8;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert {
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+
+.per-page-column {
+    text-align: -webkit-right;
+}
+
+.per-page-container {
+    width: 80px;
+}
+
+.delete-icon, .delete-icon:focus {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.flag {
+    width: 24px;
+    margin-right: 3px;
+}
+
+.input-images {
+    margin-top: 10px;
+}
+
+.image-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.view-image {
+    width: 200px;
+    height: 200px;
+    background-size: 200px 200px;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 1244px ) {
+    .image-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 800px ) {
+    .image-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 512px ) {
+    .image-container {
+        grid-template-columns: 1fr;
+    }
+    .view-image {
+        justify-self: center;
+    }
+}

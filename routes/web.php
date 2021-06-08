@@ -160,41 +160,42 @@ Route::group([
                 ->name('edit', 'settingEditView')
                 ->name('update', 'settingUpdate')
                 ->name('show', 'settingShow');
+
+
+            // Brands
+            Route::resource('brands', BrandController::class)
+                ->name('index', 'brandIndex')
+                ->name('create', 'brandCreateView')
+                ->name('store', 'brandCreate')
+                ->name('edit', 'brandEditView')
+                ->name('update', 'brandUpdate')
+                ->name('destroy', 'brandDestroy')
+                ->name('show', 'brandShow');
+
+            Route::resource('category', CategoryController::class)
+                ->name('index', 'categoryIndex')
+                ->name('create', 'categoryCreateView')
+                ->name('store', 'categoryCreate')
+                ->name('edit', 'categoryEditView')
+                ->name('update', 'categoryUpdate')
+                ->name('destroy', 'categoryDestroy')
+                ->name('show', 'categoryShow');
+
+            Route::resource('slider', SliderController::class)
+                ->name('index', 'sliderIndex')
+                ->name('create', 'sliderCreateView')
+                ->name('store', 'sliderCreate')
+                ->name('edit', 'sliderEditView')
+                ->name('update', 'sliderUpdate')
+                ->name('destroy', 'sliderDestroy')
+                ->name('show', 'sliderShow');
+
+            Route::resource('order', OrderController::class)
+                ->name('index', 'orderIndex')
+                ->name('edit', 'orderEditView')
+                ->name('update', 'orderUpdate')
+                ->name('show', 'orderShow');
         });
-
-        // Brands
-        Route::resource('brands', BrandController::class)
-            ->name('index', 'brandIndex')
-            ->name('create', 'brandCreateView')
-            ->name('store', 'brandCreate')
-            ->name('edit', 'brandEditView')
-            ->name('update', 'brandUpdate')
-            ->name('destroy', 'brandDestroy')
-            ->name('show', 'brandShow');
-
-        Route::resource('category', CategoryController::class)
-            ->name('index', 'categoryIndex')
-            ->name('create', 'categoryCreateView')
-            ->name('store', 'categoryCreate')
-            ->name('edit', 'categoryEditView')
-            ->name('update', 'categoryUpdate')
-            ->name('destroy', 'categoryDestroy')
-            ->name('show', 'categoryShow');
-
-        Route::resource('slider', SliderController::class)
-            ->name('index', 'sliderIndex')
-            ->name('create', 'sliderCreateView')
-            ->name('store', 'sliderCreate')
-            ->name('edit', 'sliderEditView')
-            ->name('update', 'sliderUpdate')
-            ->name('destroy', 'sliderDestroy')
-            ->name('show', 'sliderShow');
-
-        Route::resource('order', OrderController::class)
-            ->name('index', 'orderIndex')
-            ->name('edit', 'orderEditView')
-            ->name('update', 'orderUpdate')
-            ->name('show', 'orderShow');
 
 //        Route::get('subCategory', [CategoryController::class, 'getChildCategories'])->name('subCategoryIndex');
 //        Route::get('subCategory/create', [CategoryController::class, 'createChildCategory'])->name('subCategoryCreateView');

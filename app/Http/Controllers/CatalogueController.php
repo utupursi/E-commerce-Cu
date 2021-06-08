@@ -82,10 +82,11 @@ class CatalogueController extends Controller
             }
         }
         $newProductsCategory = array_unique(array_column($newProductsCategory, 'title', 'id'));
+        $category = $model->getRandomCategory();
         return view('pages.product.details',[
             'product' => $product,
             'category' => $category,
-            'newProducts' => $newProducts,
+            'latestProducts' => $newProducts,
             'newProductsCategory' => $newProductsCategory
         ]);
     }

@@ -403,16 +403,20 @@ class ProductService
         return Product::where(['vip' => 1])->where(['status' => 1])->take(15)->get();
     }
 
-    public function mostPayedProducts()
+    public function latestProducts()
     {
-        return Product::take(5)->where(['status' => 1])->inRandomOrder()->get();
+        return Product::take(5)->where(['status' => 1])->orderBy('created_at', 'desc')->get();
     }
+
 
     public function getHomePageCategories()
     {
         return Category::take(2)->where(['status' => 1])->get();
     }
 
+    public function getRandomCategory(){
+        return Category::first();
+    }
     public function getBrands()
     {
         return Brand::where(['status' => 1])->get();

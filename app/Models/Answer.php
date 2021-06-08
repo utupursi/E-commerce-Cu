@@ -44,6 +44,11 @@ class Answer extends Model
         return $this->product()->where('products.category_id', '=', $id)->count();
     }
 
+    public function countAnswers(){
+        return $this->product()->count();
+
+    }
+
     public function availableLanguage()
     {
         return $this->language()->where('language_id', '=', Localization::getIdByName(app()->getLocale()));

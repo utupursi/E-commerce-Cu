@@ -79,7 +79,7 @@ class HomeController extends Controller
         }
         $vipProductsCategory = array_unique(array_column($vipProductsCategory, 'title', 'id'));
 
-        $mostPayedProducts = $model->mostPayedProducts();
+        $latestProducts= $model->latestProducts();
         $additionalCategories = $model->getHomePageCategories();
         $sliders = $modelSlider->heroSlider();
         $brands = $model->getBrands();
@@ -92,7 +92,7 @@ class HomeController extends Controller
             'popularProducts' => $popularProducts,
             'newProducts' => $newProducts,
             'discountedProducts' => $discountedProducts,
-            'mostPayedProducts' => $mostPayedProducts,
+            'latestProducts' => $latestProducts,
             'additionalCategories' => $additionalCategories,
             'newProductsCategory' => $newProductsCategory,
             'discountedProductsCategory' => $discountedProductsCategory,

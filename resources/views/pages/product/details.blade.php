@@ -20,8 +20,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="product-detail-top">
-                        <div class="row align-items-center">
-                            <div class="col-md-5">
+                        <div class="row align-items-center" style="align-items: normal !important;">
+                            <div class="col-md-5" >
                                 {{--                                @if(count($product->files) > 0)--}}
                                 {{--                                    @foreach($product->files as  $key => $file)--}}
                                 {{--                                        <div class="big-img-box {{($key == 0) ? 'shown' : ''}}">--}}
@@ -132,8 +132,8 @@
                                         </div>
                                     @endforeach
                                     <div class="action">
-                                        <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                        <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Buy Now</a>
+                                        <a class="btn" href="#" onclick="addToCart(this, '{{$product->id}}')"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                        <a class="btn" href="{{route('productBuy',[app()->getLocale(),$product->id])}}"><i class="fa fa-shopping-bag"></i>Buy Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +159,7 @@
                                         {!! (count($product->availableLanguage)> 0) ? $product->availableLanguage[0]->content : '' !!}
                                     </p>
                                 </div>
-                                <div id="short-description" class="container tab-pane active">
+                                <div id="short-description" class="container tab-pane">
                                     <h4>Short description</h4>
                                     <p>
                                         {!! (count($product->availableLanguage)> 0) ? $product->availableLanguage[0]->description : '' !!}
@@ -211,7 +211,7 @@
                                      @if($index<5)
                                         <?php $index++;?>
                                         <li>
-                                            <a href="{{route('Catalogue',[app()->getLocale(),$category->id,'feature[]' => $answer->id])}}">
+                                            <a href="{{route('Catalogue',[app()->getLocale(),$product->category_id,'feature[]' => $child->answer->id])}}">
                                                 @if(count($child->answer->availableLanguage)>0)
                                                     {{$child->answer->availableLanguage[0]->title}}
                                                 @endif
@@ -224,21 +224,6 @@
                         </ul>
                     </div>
 
-                    <div class="sidebar-widget tag">
-                        <h2 class="title">Tags Cloud</h2>
-                        <a href="#">Lorem ipsum</a>
-                        <a href="#">Vivamus</a>
-                        <a href="#">Phasellus</a>
-                        <a href="#">pulvinar</a>
-                        <a href="#">Curabitur</a>
-                        <a href="#">Fusce</a>
-                        <a href="#">Sem quis</a>
-                        <a href="#">Mollis metus</a>
-                        <a href="#">Sit amet</a>
-                        <a href="#">Vel posuere</a>
-                        <a href="#">orci luctus</a>
-                        <a href="#">Nam lorem</a>
-                    </div>
                 </div>
                 <!-- Side Bar End -->
             </div>

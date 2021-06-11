@@ -26,6 +26,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\PurchaseController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
@@ -131,7 +132,7 @@ Route::group([
                 ->name('update', 'productUpdate')
                 ->name('destroy', 'productDestroy');
 
-            Route::get('products/{product}',[ProductController::class,'showAdmin'])->name( 'productShow');
+            Route::get('products/{product}', [ProductController::class, 'showAdmin'])->name('productShow');
 
             // Users
             Route::resource('users', UserController::class)
@@ -216,7 +217,7 @@ Route::group([
     Route::get('/verifyaccount/{token}', [AuthController::class, 'verify'])->name('verify');
 
     Route::middleware(['active'])->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('welcome');
+        Route::get('/', [MainController::class, 'index'])->name('welcome');
 
         Route::get('/facebook', [AuthController::class, 'facebook'])->name('loginfacebook');
         Route::get('/facebook/callback', [AuthController::class, 'facebookredirect'])->name('facebookredirect');
@@ -252,6 +253,7 @@ Route::group([
         Route::get('/addtocart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
         Route::get('/getcartcount', [CartController::class, 'getCartCount'])->name('getCartCount');
         Route::get('/buy/{product}', [CartController::class, 'productBuy'])->name('productBuy');
+        Route::post('/saveOrder', [CartController::class, 'saveOrder'])->name('saveOrder');
 
         // Favorite Functions
         Route::get('/favorites', [FavoriteController::class, 'index'])->name('Favorites');
@@ -273,6 +275,7 @@ Route::group([
         Route::get('/getProducts', [\App\Http\Controllers\ProductController::class, 'products'])->name('getProducts');
         Route::get('/searchProducts', [\App\Http\Controllers\ProductController::class, 'searchProducts'])->name('searchProducts');
         Route::get('/search', [\App\Http\Controllers\ProductController::class, 'globalSearch'])->name('globalSearch');
+        Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 
         Route::any('payments/tbc/fail', [PurchaseController::class, 'tbcFail'])->name('tbcFail');
@@ -284,3 +287,5 @@ Route::group([
 
 });
 
+
+Route::get('/home', 'MainController@index')->name('home');

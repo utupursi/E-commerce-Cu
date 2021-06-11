@@ -8,10 +8,6 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="product-list.html" class="nav-item nav-link">Products</a>
-                    <a href="product-detail.html" class="nav-item nav-link">Product Detail</a>
-                    <a href="cart.html" class="nav-item nav-link">Cart</a>
                     <a href="checkout.html" class="nav-item nav-link">Checkout</a>
                     <a href="my-account.html" class="nav-item nav-link">My Account</a>
                     <div class="nav-item dropdown">
@@ -44,8 +40,8 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <div class="logo">
-                    <a href="index.html">
-                        <img src="img/logo.png" alt="Logo">
+                    <a href="{{route('welcome',app()->getLocale())}}">
+                        <img src="/img/logo.png" alt="Logo">
                     </a>
                 </div>
             </div>
@@ -61,9 +57,9 @@
                         <i class="fa fa-heart"></i>
                         <span>(0)</span>
                     </a>
-                    <a href="cart.html" class="btn cart">
+                    <a href="{{route('Cart',app()->getLocale())}}" class="btn cart">
                         <i class="fa fa-shopping-cart"></i>
-                        <span>(0)</span>
+                        <span id="cart-count">(0)</span>
                     </a>
                 </div>
             </div>

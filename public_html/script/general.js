@@ -84,12 +84,12 @@ $('.toggle-search-form').on('click', function () {
 });
 
 // close search form on outside click
-window.addEventListener('click', function (e) {
-
-    if (!formBox.contains(e.target) && (!formToggler.contains(e.target))) {
-        formBox.classList.remove('shown');
-    }
-});
+// window.addEventListener('click', function (e) {
+//
+//     if (!formBox.contains(e.target) && (!formToggler.contains(e.target))) {
+//         formBox.classList.remove('shown');
+//     }
+// });
 
 
 /// --------------- switch tab function  --------
@@ -194,11 +194,11 @@ $('.card-add-btn').on('click', function cartAnimate() {
 
 // increase qty
 function QuantityPlus(el, $id) {
-    var qtyInput = $(el).parent('.plus-minus-box').find("input");
-
+    var qtyInput = $(el).parent('.qty').find("input");
     // increase by 1
     let newVal = parseInt($(qtyInput).val()) + 1;
-    qtyInput.val(newVal);
+    // qtyInput.val(newVal);
+
     addcartcount($id, +1);
 
 };
@@ -206,13 +206,13 @@ function QuantityPlus(el, $id) {
 // decrease qty
 function QuantityMinus(el, $id) {
 
-    var qtyInput = $(el).parent('.plus-minus-box').find("input");
+    var qtyInput = $(el).parent('.qty').find("input");
 
     // decrease if its > 1
     if ($(qtyInput).val() == 1) return;
 
     let newVal = parseInt($(qtyInput).val()) - 1;
-    qtyInput.val(newVal);
+    // qtyInput.val(newVal);
     addcartcount($id, -1);
 
 };
@@ -271,6 +271,8 @@ function getCartCount() {
             if (data.status == true) {
                 $('#cart-count').text(data.count)
                 $('#cart_count').text(data.count)
+                $('#sub-total').text(data.total)
+                $('#total-price').text(`$ ${data.total+5}`)
                 $('#cart_price').text(`${data.total}₾`)
 
                 $('#step_product_price').text(`${data.total}₾`)
@@ -290,8 +292,8 @@ function getCartCount() {
 
                     $(`#product-count-${el.id}`).val(el.quantity)
                     if (el.sale !== '') {
-                        $(`#cart_product_price-${el.id}`).text(`${(el.sale) / 100}₾`)
-                        $(`#cart_product_total-${el.id}`).text(`${(el.sale / 100) * el.quantity}₾`)
+                        $(`#cart_product_price-${el.id}`).text(`$ ${(el.sale) / 100}`)
+                        $(`#cart_product_total-${el.id}`).text(`$ ${(el.sale / 100) * el.quantity}`)
                         $(`#cart_product_total-step-${el.id}`).text(`${(el.sale / 100) * el.quantity}₾`)
                         $(`#cart_2_product_total-step-${el.id}`).text(`${(el.sale / 100) * el.quantity}₾`)
                         $(`#cart_3_product_total-step-${el.id}`).text(`${(el.sale / 100) * el.quantity}₾`)
@@ -309,6 +311,7 @@ function getCartCount() {
 }
 
 function addcartcount($id, $type) {
+    console.log(22);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -325,12 +328,11 @@ function addcartcount($id, $type) {
     });
 }
 
-function removefromcart() {
-    let items = [];
-    $("input[name='product-select']:checked").each(function () {
-        items.push(parseInt($(this).val()))
-    })
-    if (items.length > 0) {
+function removefromcart(id) {
+    // $("input[name='product-select']:checked").each(function () {
+    //     items.push(parseInt($(this).val()))
+    // })
+    if (id) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -340,16 +342,11 @@ function removefromcart() {
             url: `/${locale}/removefromcart`,
             method: 'GET',
             data: {
-                items
+                id
             },
             success: function (data) {
                 if (data.status === true) {
-                    items.forEach((el) => {
-                        $(`#cart-container`).children(`#cart-${el}`).eq(0).remove();
-                    })
-                    if ($('.cart__card').length < 1) {
-                        $('.cart-empty').removeClass('hidden');
-                    }
+                    $(`#cart-container-${id}`).remove();
                     getCartCount();
                 }
             }

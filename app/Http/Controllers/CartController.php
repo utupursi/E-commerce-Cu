@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PurchaseRequest;
 use App\Models\Bank;
 use App\Models\Localization;
 use App\Models\Order;
@@ -170,7 +171,7 @@ class CartController extends Controller
         return view('pages.cart.checkout');
     }
 
-    public function saveOrder(Request $request)
+    public function saveOrder(PurchaseRequest $request)
     {
         $cart = session('products') ?? null;
 
@@ -196,8 +197,7 @@ class CartController extends Controller
 //            }
             try {
                 $order = Order::create([
-                    'bank_id' => "",
-                    'payment_type_id' => $paymentType,
+                    'payment_type_id' => $paymentType->id,
                     'transaction_id' => uniqid(),
                     'shipment_price' => $shipmentPrice,
                     'total_price' => $total,
@@ -208,8 +208,24 @@ class CartController extends Controller
                     'phone' => $request['phone'],
                     'address' => $request['address'],
                 ]);
-            }catch (QueryException $exception){
-                dd($exception);
+
+                $products = array();
+                foreach ($cart as $item) {
+                    $product = Product::find(intval($item->product_id));
+                    if ($product && $item->quantity > 0) {
+                        $products[] = (array)[
+                            'order_id' => $order->id,
+                            'product_id' => $product->id,
+                            'amount' => $product->price,
+                            'total_price' => ($product->sale == 1) ? $product->sale_price : $product->price,
+                            'quantity' => intval($item->quantity),
+                        ];
+                    }
+                }
+                $order->products()->createMany($products);
+                session(['products' => []]);
+            } catch (QueryException $exception) {
+
             }
         }
     }

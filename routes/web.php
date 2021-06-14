@@ -211,6 +211,8 @@ Route::group([
 
     // Auth
     Route::post('/register', [AuthController::class, 'register'])->name('Register');
+    Route::get('login', [AuthController::class, 'loginFrontend'])->name('loginFrontend');
+    Route::get('register', [AuthController::class, 'registerFrontend'])->name('registerFrontend');
 
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -254,6 +256,8 @@ Route::group([
         Route::get('/getcartcount', [CartController::class, 'getCartCount'])->name('getCartCount');
         Route::get('/buy/{product}', [CartController::class, 'productBuy'])->name('productBuy');
         Route::post('/saveOrder', [CartController::class, 'saveOrder'])->name('saveOrder');
+
+        Route::get('/my-account', [MainController::class, 'userAccount'])->name('myAccount');
 
         // Favorite Functions
         Route::get('/favorites', [FavoriteController::class, 'index'])->name('Favorites');

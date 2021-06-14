@@ -29,7 +29,7 @@ class PurchaseRequest extends FormRequest
             'surname'=>'required|string|max:255',
             'email'=>'required|email|max:50',
             'phone'=>'required|string|max:255',
-            'address'=>'requried|string|max:255',
+            'address'=>'required|string|max:255',
             'payment_method'=>"required|string|max:50"
         ];
 

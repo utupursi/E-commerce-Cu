@@ -16,7 +16,6 @@
             <tr>
                 <th>@lang('admin.id')</th>
                 <th>@lang('admin.full_name')</th>
-                <th>@lang('admin.bank')</th>
                 <th>@lang('admin.payment_type')</th>
                 <th>@lang('admin.total_price')</th>
                 <th>@lang('admin.status')</th>
@@ -34,14 +33,6 @@
                 <th>
                     {{ Form::text('fullname',Request::get('fullname'),  ['class' => 'form-control', 'no','onChange' => 'this.form.submit()']) }}
                     @error('fullname')
-                    <span class="help-block">
-                        {{$message}}
-                        </span>
-                    @enderror
-                </th>
-                <th>
-                    {{ Form::text('bank',Request::get('bank'),  ['class' => 'form-control', 'no','onChange' => 'this.form.submit()']) }}
-                    @error('bank')
                     <span class="help-block">
                         {{$message}}
                         </span>
@@ -87,9 +78,7 @@
                         <td class="text-center">
                             {{$order->full_name}}
                         </td>
-                        <td class="text-center">
-                            {{$order->bank->title}}
-                        </td>
+
                         <td class="text-center">
                             {{$order->paymentType->title}}
                         </td>

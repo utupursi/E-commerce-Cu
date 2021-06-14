@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Slider;
@@ -101,6 +103,16 @@ class MainController extends Controller
             'brands' => $brands,
             'banner' => $banner,
             'secondBanner' => $secondBanner
+        ]);
+    }
+
+    public function userAccount(){
+        $userOrders=Order::where(['user_id'=>auth()->user()->id])->with(['products.product'])->get();
+        if(!$userOrders){
+            abort(404);
+        }
+        return view('pages.user.my-account',[
+            'orders'=>$userOrders
         ]);
     }
 }

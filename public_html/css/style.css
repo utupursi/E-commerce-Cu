@@ -74,7 +74,7 @@ h2 {
     padding: 0 15px;
     color: #999999;
     border: 1px solid #dddddd;
-    margin-bottom: 15px
+    margin-bottom: 10px;
 }
 
 .form-control:focus,
@@ -2234,6 +2234,7 @@ h2 {
     position: relative;
     padding: 30px 0 0 0;
     background: #ffffff;
+    margin:156px 0px 32px 7px;
 }
 
 .footer .footer-widget {
@@ -2411,4 +2412,11 @@ h2 {
     .footer-bottom .template-by {
         text-align: center;
     }
+}
+.error-text{
+    color:red;
+    font-size:15px;
+}
+.invalid{
+    border:1px solid red;
 }

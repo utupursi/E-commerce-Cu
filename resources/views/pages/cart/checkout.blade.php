@@ -14,29 +14,45 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>First Name</label>
-                                        <input class="form-control" name="name" type="text"
+                                        <input class="form-control {{$errors->has('name')?"invalid":""}}" name="name" type="text"
                                                placeholder="First Name">
                                         @if ($errors->has('name'))
-                                            <small
-                                                class="errorTxt">{{ $errors->first('name') }}</small>
+                                            <span
+                                                class="error-text">{{ $errors->first('name') }}</span>
                                         @endif
                                     </div>
                                     <div class="col-md-6">
                                         <label>Last Name"</label>
-                                        <input class="form-control" name="surname" type="text"
+                                        <input class="form-control {{$errors->has('surname')?"invalid":""}}" name="surname" type="text"
                                                placeholder="Last Name">
+                                        @if ($errors->has('surname'))
+                                            <span
+                                                class="error-text">{{ $errors->first('surname') }}</span>
+                                        @endif
                                     </div>
                                     <div class="col-md-6">
                                         <label>E-mail</label>
-                                        <input class="form-control" type="text" name="email" placeholder="E-mail">
+                                        <input class="form-control {{$errors->has('email')?"invalid":""}}" type="text" name="email" placeholder="E-mail">
+                                        @if ($errors->has('email'))
+                                            <span
+                                                class="error-text">{{ $errors->first('email') }}</span>
+                                        @endif
                                     </div>
                                     <div class="col-md-6">
                                         <label>Mobile No</label>
-                                        <input class="form-control" type="text" name="phone" placeholder="Mobile No">
+                                        <input class="form-control {{$errors->has('phone')?"invalid":""}}" type="text" name="phone" placeholder="Mobile No">
+                                        @if ($errors->has('phone'))
+                                            <span
+                                                class="error-text">{{ $errors->first('phone') }}</span>
+                                        @endif
                                     </div>
                                     <div class="col-md-12">
                                         <label>Address</label>
-                                        <input class="form-control" type="text" name="address" placeholder="Address">
+                                        <input class="form-control {{$errors->has('address')?"invalid":""}}" type="text" name="address" placeholder="Address">
+                                        @if ($errors->has('address'))
+                                            <span
+                                                class="error-text">{{ $errors->first('address') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -142,6 +158,10 @@
                                             </p>
                                         </div>
                                     </div>
+                                    @if ($errors->has('payment_method'))
+                                        <span
+                                            class="error-text">{{ $errors->first('payment_method') }}</span>
+                                    @endif
                                 </div>
                                 <div class="checkout-btn">
                                     <button>Place Order</button>

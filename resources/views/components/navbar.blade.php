@@ -8,24 +8,21 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="checkout.html" class="nav-item nav-link">Checkout</a>
-                    <a href="my-account.html" class="nav-item nav-link">My Account</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="wishlist.html" class="dropdown-item">Wishlist</a>
-                            <a href="login.html" class="dropdown-item">Login & Register</a>
-                            <a href="contact.html" class="dropdown-item">Contact Us</a>
-                        </div>
-                    </div>
+                        @auth
+                        @else
+                            <a href="{{route('loginFrontend',app()->getLocale())}}" class="nav-item nav-link">შესვლა</a>
+                            <a href="{{route('registerFrontend',app()->getLocale())}}" class="nav-item nav-link">რეგისტრაცია</a>
+                        @endauth
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="nav-item dropdown">
+                        @auth
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item">Login</a>
-                            <a href="#" class="dropdown-item">Register</a>
+                                <a href="{{route('myAccount',app()->getLocale())}}" class="nav-item nav-link">ჩემი პროფილი</a>
+                            <a href="{{route('logout',app()->getLocale() )}}" class="nav-item nav-link">გამოსვლა</a>
                         </div>
+                        @endauth
                     </div>
                 </div>
             </div>

@@ -199,6 +199,7 @@ class CartController extends Controller
                 $order = Order::create([
                     'payment_type_id' => $paymentType->id,
                     'transaction_id' => uniqid(),
+                    'user_id'=>auth()->user()->id,
                     'shipment_price' => $shipmentPrice,
                     'total_price' => $total,
                     'status' => 3,
@@ -224,7 +225,9 @@ class CartController extends Controller
                 }
                 $order->products()->createMany($products);
                 session(['products' => []]);
+                return redirect()->route('myAccount',app()->getLocale())->with('success','Order was successfully saved');
             } catch (QueryException $exception) {
+                return redirect()->route('myAccount',app()->getLocale())->with('danger','Order does not saved');
 
             }
         }

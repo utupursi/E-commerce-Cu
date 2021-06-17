@@ -81,13 +81,13 @@ class MainController extends Controller
 //        }
 //        $vipProductsCategory = array_unique(array_column($vipProductsCategory, 'title', 'id'));
 
-        $latestProducts= $model->latestProducts();
+        $latestProducts = $model->latestProducts();
         $additionalCategories = $model->getHomePageCategories();
         $sliders = $modelSlider->heroSlider();
         $brands = $model->getBrands();
 
-        $banner = Slider::where('type','banner')->first();
-        $secondBanner = Slider::where('type','second_banner')->first();
+        $banner = Slider::where('type', 'banner')->first();
+        $secondBanner = Slider::where('type', 'second_banner')->first();
         return view('pages.home.home', [
             'page' => $page,
 //            'vipProducts' => $vipProducts,
@@ -106,13 +106,27 @@ class MainController extends Controller
         ]);
     }
 
-    public function userAccount(){
-        $userOrders=Order::where(['user_id'=>auth()->user()->id])->with(['products.product'])->get();
-        if(!$userOrders){
+    public function userAccount()
+    {
+        $userOrders = Order::where(['user_id' => auth()->user()->id])->get();
+        if (!$userOrders) {
             abort(404);
         }
-        return view('pages.user.my-account',[
-            'orders'=>$userOrders
+        return view('pages.user.my-account', [
+            'orders' => $userOrders
+        ]);
+    }
+
+    public function userProducts(string $locale, int $orderId)
+    {
+        $orderProducts = Order::where(['id' => $orderId])
+            ->with(['products.product.availableLanguage'])
+            ->first();
+        if (!$orderProducts) {
+            abort(404);
+        }
+        return view('pages.user.user-products', [
+            'order' => $orderProducts
         ]);
     }
 }

@@ -258,6 +258,7 @@ Route::group([
         Route::post('/saveOrder', [CartController::class, 'saveOrder'])->name('saveOrder');
 
         Route::get('/my-account', [MainController::class, 'userAccount'])->name('myAccount');
+        Route::get('/user-products/{orderId}', [MainController::class, 'userProducts'])->name('userProducts');
 
         // Favorite Functions
         Route::get('/favorites', [FavoriteController::class, 'index'])->name('Favorites');

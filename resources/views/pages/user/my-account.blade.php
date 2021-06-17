@@ -4,6 +4,16 @@
 
     <div class="my-account">
         <div class="container-fluid">
+            @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @endif
+            @if(session()->has('danger'))
+                <div class="alert alert-success">
+                    {{ session()->get('danger') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-3">
                     <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
@@ -46,7 +56,7 @@
                                             <td>{{$order->id}}</td>
                                             <td>{{$order->transaction_id}}</td>
                                             <td>{{$order->paymentType->title}}</td>
-                                            <td>$ {{$order->total_price/100}}</td>
+                                            <td>$ {{round($order->total_price/100,2)}}</td>
                                             <td>
                                                 @if($order->status==1)
                                                     Success
@@ -57,7 +67,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <button class="btn">View</button>
+                                                <a href="{{route('userProducts',[app()->getLocale(),$order->id])}}" class="btn">View</a>
                                             </td>
                                         </tr>
                                     @endforeach

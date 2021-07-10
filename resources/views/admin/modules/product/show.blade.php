@@ -27,6 +27,8 @@
                                 <td>
                                     {{ (count($product->availableLanguage) > 0) ? $product->availableLanguage[0]->content : ''}}
                                 </td>
+
+                                
                             </tr>
                             <tr>
                                 <th>{{__('admin.position')}}</th>

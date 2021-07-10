@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i
+                        <a class="nav-link active" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i
                                 class="fa fa-user"></i>Account Details</a>
                         <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
                                 class="fa fa-shopping-bag"></i>Orders</a>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel"
+                        <div class="tab-pane fade show" id="dashboard-tab" role="tabpanel"
                              aria-labelledby="dashboard-nav">
                             <h4>Dashboard</h4>
                             <p>
@@ -67,7 +67,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{route('userProducts',[app()->getLocale(),$order->id])}}" class="btn">View</a>
+                                                <a href="{{route('userProducts',[app()->getLocale(),$order->id])}}" class="btn">ნახვა</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -102,44 +102,57 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
+                        <div class="tab-pane fade show active" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
                             <h4>Account Details</h4>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="First Name">
+                            <form action={{route('updateProfile',app()->getLocale())}} class="row" method="POST">
+                            {{ method_field('PUT') }}
+                            @csrf
+                            <div class="col-md-6">
+                                <label>სახელი</label>
+                                    <input name="first_name" value="{{count(auth()->user()->availableLanguage)>0?auth()->user()->availableLanguage[0]->first_name:''}}" class="form-control" name="first_name" type="text" placeholder="First Name">
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Last Name">
+                                <label>გვარი</label>
+                                    <input class="form-control" name="last_name" value="{{count(auth()->user()->availableLanguage)>0?auth()->user()->availableLanguage[0]->last_name:''}}" name="last_name" type="text" placeholder="Last Name">
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Mobile">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Email">
+                                <label>ელ.ფოსტა</label>
+                                    <input disabled class="form-control" name="email" value="{{auth()->user()->email}}" type="text" placeholder="Email">
                                 </div>
                                 <div class="col-md-12">
-                                    <input class="form-control" type="text" placeholder="Address">
+                                <label>მისამართი</label>
+                                    <input class="form-control" name="address" value="{{count(auth()->user()->availableLanguage)>0?auth()->user()->availableLanguage[0]->address:''}}" type="text" placeholder="Address">
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn">Update Account</button>
+                                    <button class="btn">განახლება</button>
                                     <br><br>
                                 </div>
-                            </div>
+                            </form>
                             <h4>Password change</h4>
-                            <div class="row">
+                            <form action={{route('passwordChange',app()->getLocale())}} class="row" method="POST">
+                            {{ method_field('PUT') }}
+                            @csrf
                                 <div class="col-md-12">
-                                    <input class="form-control" type="password" placeholder="Current Password">
+                                    <input value="{{old('password')}}" name="password" class="form-control" type="password" placeholder="Current Password">
+                                    @error('password')
+                                            <span class="error-text" role="alert">{{ $message }}</span>
+                                     @enderror                                </div>
+                                <div class="col-md-6">
+                                    <input name="new_password" class="form-control" type="password" placeholder="New Password">
+                                    @error('new_password')
+                                            <span class="error-text" role="alert">{{ $message }}</span>
+                                     @enderror  
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="New Password">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Confirm Password">
+                                    <input name="new_password_repeat" class="form-control" type="password" placeholder="Confirm Password">
+                                    @error('new_password_repeat')
+                                            <span class="error-text" role="alert">{{ $message }}</span>
+                                     @enderror  
                                 </div>
                                 <div class="col-md-12">
                                     <button class="btn">Save Changes</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

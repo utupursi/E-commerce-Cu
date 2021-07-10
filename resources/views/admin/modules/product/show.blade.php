@@ -38,7 +38,7 @@
                             </tr>
                             <tr>
                                 <th>{{__('client.price')}}</th>
-                                <td>{{$product->price}}</td>
+                                <td>{{number_format($product->price/100,2)}}</td>
                             </tr>
                             <tr>
                                 <th>{{__('admin.status')}}</th>

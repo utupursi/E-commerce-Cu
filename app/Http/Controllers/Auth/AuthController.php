@@ -148,6 +148,7 @@ class AuthController extends Controller
 
     public function register($locale, RegisterRequest $request)
     {
+
         $data = $request->only([
             'first_name',
             'last_name',

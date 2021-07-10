@@ -14,6 +14,12 @@ use App\Services\SliderService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Symfony\Polyfill\Ctype\Ctype;
+use App\Http\Request\ProfileRequest;
+use App\Http\Request\PasswordRequest;
+use App\Models\Localization;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Models\UserLanguage;
 
 class MainController extends Controller
 {
@@ -108,7 +114,7 @@ class MainController extends Controller
 
     public function userAccount()
     {
-        $userOrders = Order::where(['user_id' => auth()->user()->id])->get();
+        $userOrders = Order::where(['user_id' => auth()->user()->id])->paginate(10);
         if (!$userOrders) {
             abort(404);
         }
@@ -119,7 +125,7 @@ class MainController extends Controller
 
     public function userProducts(string $locale, int $orderId)
     {
-        $orderProducts = Order::where(['id' => $orderId])
+        $orderProducts = Order::where(['id' => $orderId,'user_id'=>auth()->user()->id])
             ->with(['products.product.availableLanguage'])
             ->first();
         if (!$orderProducts) {
@@ -129,4 +135,53 @@ class MainController extends Controller
             'order' => $orderProducts
         ]);
     }
+
+    public function changePassword(){
+
+    }
+
+
+    public function updateProfile(string $lang,ProfileRequest $request){
+    
+        $localization = Localization::where('abbreviation', $lang)->first();
+
+        $user=User::find(auth()->user()->id);
+        $userLanguage=UserLanguage::where(['language_id'=>$localization->id,'user_id'=>auth()->user()->id])->first();
+        if($userLanguage){
+          $userLanguage->update([
+            'first_name'=>$request['first_name'],
+            'last_name'=>$request['last_name'],
+            'address'=>$request['address']
+          ]);
+        }
+        else{
+          UserLanguage::create([
+            'language_id'=>$localization->id,
+            'user_id'=>auth()->user()->id,
+            'first_name'=>$request['first_name'],
+            'last_name'=>$request['last_name'],
+            'address'=>$request['address']
+          ]);
+    }
+
+
+        return redirect()->route('myAccount',$lang)->with('success','პროფილი წარმატებულად განახლდა');
+
+    }
+
+    public function changeUserPassword(string $lang,PasswordRequest $request){
+        $user=User::find(auth()->user()->id);
+        $userUpdate=$user->update([
+           'password'=> Hash::make($request->new_password)
+        ]);
+
+        if($userUpdate){
+           return redirect()->route('myAccount',$lang)->with('success','პაროლი წარმატებულად შეიცვალა');
+        }
+        return redirect()->route('myAccount',$lang)->with('dange','პაროლი არ შეიცვალა');
+
+
+
+    }
 }
+

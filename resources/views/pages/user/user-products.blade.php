@@ -11,24 +11,26 @@
                     <div class="cart-page-inner">
                         <div class="table-responsive">
                             <table class="table table-bordered">
-                                <thead class="thead-dark">
+                            <thead class="thead-dark">
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>Amount</th>
-                                    <th>Total Price</th>
-                                    <th>Quantity</th>
-                                    <th>Remove</th>
+                                    <th>სურათი</th>
+                                    <th>სახელი</th>
+                                    <th>ფასი</th>
+                                    <th>საერთო ფასი</th>
+                                    <th>რაოდენოაბა</th>
                                 </tr>
                                 </thead>
                                 <tbody class="align-middle">
-                                @foreach($orderProducts->products as $product)
+
+                                @foreach($order->products as $product)
                                     <tr id="cart-container-{{$product['id']}}">
                                         <td>
+                    
                                             <div class="img">
                                                 <a href="#">
-                                                    @if($product['file'] != '')
+                                                    @if(count($product->product->files)>0)
                                                         <img
-                                                            src="{{url('storage/product/'.$product['id']. '/'.$product['file'])}}"
+                                                            src="{{url('storage/product/'.$product->product->id. '/'.$product->product->files[0]->name)}}"
                                                             alt="">
                                                     @else
                                                         <img src="{{url('noimage.png')}}" alt="">
@@ -38,23 +40,16 @@
                                             </div>
                                         </td>
                                         <td id="cart_product_price-{{$product['id']}}">
+                                        {{count($product->availableLanguage)>0?$product->availableLanguage[0]->title:""}}
                                             $ {{($product['sale']) ? number_format($product['sale']/100,0):number_format($product['price']/100,0)}}</td>
                                         <td>
-                                            <div class="qty">
-                                                <button class="btn-minus"
-                                                        onclick="QuantityMinus(this,{{$product['id']}})"><i
-                                                        class="fa fa-minus"></i></button>
-                                                <input min="1" max="12" type="text" value="{{$product['quantity']}}" disabled>
-                                                <button class="btn-plus"
-                                                        onclick="QuantityPlus(this,{{$product['id']}})"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </div>
+                                           {{number_format($product->amount/100,2)}}$
                                         </td>
-                                        <td id="cart_product_total-{{$product['id']}}">
-                                            $ {{($product['sale']) ?number_format((($product['sale']/100)*$product['quantity']),0) : number_format((($product['price']/100) * $product['quantity']),0)}}</td>
                                         <td>
-                                            <button onclick="removefromcart({{$product['id']}})"><i
-                                                    class="fa fa-trash"></i></button>
+                                        {{number_format($product->total_price/100,2)}}
+                        
+                                        <td>
+                                            {{$product->quantity}}
                                         </td>
                                     </tr>
                                 @endforeach

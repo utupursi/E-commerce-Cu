@@ -255,10 +255,8 @@ Route::group([
         Route::get('/addtocart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
         Route::get('/getcartcount', [CartController::class, 'getCartCount'])->name('getCartCount');
         Route::get('/buy/{product}', [CartController::class, 'productBuy'])->name('productBuy');
-        Route::post('/saveOrder', [CartController::class, 'saveOrder'])->name('saveOrder');
 
-        Route::get('/my-account', [MainController::class, 'userAccount'])->name('myAccount');
-        Route::get('/user-products/{orderId}', [MainController::class, 'userProducts'])->name('userProducts');
+
 
         // Favorite Functions
         Route::get('/favorites', [FavoriteController::class, 'index'])->name('Favorites');
@@ -283,9 +281,16 @@ Route::group([
         Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 
-        Route::any('payments/tbc/fail', [PurchaseController::class, 'tbcFail'])->name('tbcFail');
-        Route::any('payments/tbc/success', [PurchaseController::class, 'tbcResponse'])->name('tbcResponse');
-        Route::any('payments/bog/status', [PurchaseController::class, 'bogResponse'])->name('bogResponse');
+
+    });
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/my-account', [MainController::class, 'userAccount'])->name('myAccount');
+        Route::get('/user-products/{orderId}', [MainController::class, 'userProducts'])->name('userProducts');
+        Route::post('/saveOrder', [CartController::class, 'saveOrder'])->name('saveOrder');
+        Route::put('/updateProfile', [MainController::class, 'updateProfile'])->name('updateProfile');
+        Route::put('/passwordChange', [MainController::class, 'changeUserPassword'])->name('passwordChange');
+
 
 
     });

@@ -117,11 +117,11 @@ class CategoryService
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $key => $file) {
                 $imagename = date('Ymhs') . $file->getClientOriginalName();
-                $destination = base_path() . '/storage/app/public/answer/' . $this->model->id;
+                $destination = base_path() . '/storage/app/public/category/' . $this->model->id;
                 $request->file('images')[$key]->move($destination, $imagename);
                 $model->files()->create([
                     'name' => $imagename,
-                    'path' => '/storage/app/public/answer/' . $model->id,
+                    'path' => '/storage/app/public/category/' . $model->id,
                     'format' => $file->getClientOriginalExtension(),
                 ]);
             }

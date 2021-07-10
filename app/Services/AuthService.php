@@ -49,6 +49,7 @@ class AuthService
      */
     public function store(string $lang, array $request)
     {
+    
         try {
             DB::beginTransaction();
 
@@ -86,6 +87,7 @@ class AuthService
                 throw $error;
             }
         } catch (\Exception $dbException) {
+
             DB::rollBack();
             return false;
         }

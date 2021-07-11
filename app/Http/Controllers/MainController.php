@@ -20,6 +20,8 @@ use App\Models\Localization;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserLanguage;
+use Illuminate\Support\Facades\DB;
+
 
 class MainController extends Controller
 {
@@ -125,6 +127,8 @@ class MainController extends Controller
 
     public function userProducts(string $locale, int $orderId)
     {
+        // $orderProducts= DB::select(DB::raw("SELECT * FROM orders where id=$orderId and user_id=$id"));
+
         $orderProducts = Order::where(['id' => $orderId,'user_id'=>auth()->user()->id])
             ->with(['products.product.availableLanguage'])
             ->first();

@@ -34,7 +34,7 @@
                             @if($order->address)
                                 <tr>
                                     <th>{{__('admin.address')}}</th>
-                                    <td>{{$order->address}}</td>
+                                    <td><?= $order->address?></td>
                                 </tr>
                             @endif
 
@@ -51,125 +51,6 @@
 
                             </tbody>
                         </table>
-                        @if($order->bank->title==="Volta Loan")
-                            <br>
-                            <h3>{{__('admin.volta_loan')}}</h3>
-                            <br>
-                            <table class="table table-striped table-bordered">
-                                <tbody>
-                                <tr>
-                                    <th>{{__('admin.first_name')}}</th>
-                                    <td>
-                                        {{$order->loan->first_name}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>{{__('admin.last_name')}}</th>
-                                    <td>{{$order->loan->last_name}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.personal_number')}}</th>
-                                    <td>{{$order->loan->personal_number}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.phone')}}</th>
-                                    <td>{{$order->loan->phone}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.jurisdiction_address')}}</th>
-                                    <td>{{$order->loan->jurisdiction_address}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.actual_address')}}</th>
-                                    <td>{{$order->loan->actual_address}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.job')}}</th>
-                                    <td>{{$order->loan->job}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.job_address')}}</th>
-                                    <td>{{$order->loan->job_address}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.job_phone')}}</th>
-                                    <td>{{$order->loan->job_phone}}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{__('client.income')}}</th>
-                                    <td>{{$order->loan->income}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.additional_income')}}</th>
-                                    <td>{{$order->loan->additional_income}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.liabilities')}}</th>
-                                    <td>{{$order->loan->liabilities}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.family_full_name')}}</th>
-                                    <td>{{$order->loan->family_full_name}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.family_phone')}}</th>
-                                    <td>{{$order->loan->family_phone}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.family_1_full_name')}}</th>
-                                    <td>{{$order->loan->family_1_full_name}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.family_2_phone')}}</th>
-                                    <td>{{$order->loan->family_2_phone}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.employee_full_name')}}</th>
-                                    <td>{{$order->loan->employee_full_name}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.employee_phone')}}</th>
-                                    <td>{{$order->loan->employee_phone}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.friend_full_name')}}</th>
-                                    <td>{{$order->loan->friend_full_name}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.friend_phone')}}</th>
-                                    <td>{{$order->loan->friend_phone}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.payment_day')}}</th>
-                                    <td>{{$order->loan->payment_day}}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{__('client.month_total')}}</th>
-                                    <td>{{$order->loan->month_total}}</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        @endif
                         <br>
                         <h3>{{__('admin.products')}}</h3>
                         <br>

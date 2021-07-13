@@ -21,7 +21,7 @@
                                 class="fa fa-user"></i>Account Details</a>
                         <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i
                                 class="fa fa-shopping-bag"></i>Orders</a>
-                        <a class="nav-link" href="index.html"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                        <a class="nav-link" href="{{route('logout',app()->getLocale())}}"><i class="fa fa-sign-out-alt"></i>Logout</a>
                     </div>
                 </div>
                 <div class="col-md-9">

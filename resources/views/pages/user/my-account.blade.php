@@ -141,13 +141,13 @@
                                     <input name="new_password" class="form-control" type="password" placeholder="New Password">
                                     @error('new_password')
                                             <span class="error-text" role="alert">{{ $message }}</span>
-                                     @enderror  
+                                     @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <input name="new_password_repeat" class="form-control" type="password" placeholder="Confirm Password">
                                     @error('new_password_repeat')
                                             <span class="error-text" role="alert">{{ $message }}</span>
-                                     @enderror  
+                                     @enderror
                                 </div>
                                 <div class="col-md-12">
                                     <button class="btn">Save Changes</button>

@@ -22,7 +22,7 @@
                     {{--                                <img src="img/product-1.jpg" alt="Product Image">--}}
                     {{--                            </a>--}}
                     <div class="product-action">
-                        <a href="#"><i class="fa fa-cart-plus"></i></a>
+                        <a href="#" onclick="addToCart(this, '{{$product->id}}')"><i class="fa fa-cart-plus"></i></a>
                         <a href="#"><i class="fa fa-heart"></i></a>
                         <a href="{{route('productDetails',[app()->getLocale(),$product->category_id,$product->id])}}"><i
                                 class="fa fa-search"></i></a>
@@ -38,7 +38,7 @@
                         @endif
                     </h3>
                     <br>
-                    <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                    <a class="btn" href="{{route('productBuy',[app()->getLocale(),$product->id])}}"><i class="fa fa-shopping-cart"></i>Buy Now</a>
                 </div>
             </div>
         </div>

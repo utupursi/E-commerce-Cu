@@ -25,8 +25,7 @@
                                 @foreach($order->products as $product)
                                     <tr id="cart-container-{{$product['id']}}">
                                         <td>
-                    
-                                            <div class="img">
+                                            <div class="img" style="display: block">
                                                 <a href="#">
                                                     @if(count($product->product->files)>0)
                                                         <img
@@ -40,19 +39,48 @@
                                             </div>
                                         </td>
                                         <td id="cart_product_price-{{$product['id']}}">
-                                        {{count($product->availableLanguage)>0?$product->availableLanguage[0]->title:""}}
+                                            {{count($product->availableLanguage)>0?$product->availableLanguage[0]->title:""}}
                                             $ {{($product['sale']) ? number_format($product['sale']/100,0):number_format($product['price']/100,0)}}</td>
                                         <td>
-                                           {{number_format($product->amount/100,2)}}$
+                                            {{number_format($product->amount/100,2)}}$
                                         </td>
                                         <td>
                                         {{number_format($product->total_price/100,2)}}
-                        
+
                                         <td>
                                             {{$product->quantity}}
                                         </td>
                                     </tr>
                                 @endforeach
+{{--                                @foreach($order as $product)--}}
+{{--                                    <tr id="cart-container">--}}
+{{--                                        <td>--}}
+
+{{--                                            <div class="img">--}}
+{{--                                                <a href="#">--}}
+{{--                                                    @if($product->name)--}}
+{{--                                                        <img--}}
+{{--                                                            src="{{url('storage/product/'.$product->product_id. '/'.$product->name)}}"--}}
+{{--                                                            alt="">--}}
+{{--                                                    @else--}}
+{{--                                                        <img src="{{url('noimage.png')}}" alt="">--}}
+{{--                                                    @endif--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+{{--                                        </td>--}}
+{{--                                        <td id="cart_product_price">--}}
+{{--                                        {{$product->title}}--}}
+{{--                                        <td>--}}
+{{--                                           {{number_format($product->amount/100,2)}}$--}}
+{{--                                        </td>--}}
+{{--                                        <td>--}}
+{{--                                        {{number_format($product->total_price/100,2)}}--}}
+
+{{--                                        <td>--}}
+{{--                                            {{$product->quantity}}--}}
+{{--                                        </td>--}}
+{{--                                    </tr>--}}
+{{--                                @endforeach--}}
 
                                 </tbody>
                             </table>

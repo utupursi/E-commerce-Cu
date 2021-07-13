@@ -125,11 +125,28 @@ class MainController extends Controller
         ]);
     }
 
-    public function userProducts(string $locale, int $orderId)
+    public function userProducts(string $locale, $orderId)
     {
-        // $orderProducts= DB::select(DB::raw("SELECT * FROM orders where id=$orderId and user_id=$id"));
+        $id = auth()->user()->id;
+//        $orderProducts = DB::select(DB::raw("
+//           SELECT * FROM orders
+//           JOIN order_products on orders.id=order_products.order_id
+//           JOIN products on order_products.product_id=products.id
+//           JOIN product_languages on products.id=product_languages.product_id
+//           where orders.id= ? and orders.user_id=?"),[$orderId,$id]
+//        );
 
-        $orderProducts = Order::where(['id' => $orderId,'user_id'=>auth()->user()->id])
+//        $orderProducts = DB::select(DB::raw("
+//           SELECT * FROM orders
+//           JOIN order_products on orders.id=order_products.order_id
+//           JOIN products on order_products.product_id=products.id
+//           JOIN product_languages on products.id=product_languages.product_id
+//           where orders.id= $orderId and orders.user_id=$id")
+//        );
+
+
+
+        $orderProducts = Order::where(['id' => $orderId, 'user_id' => auth()->user()->id])
             ->with(['products.product.availableLanguage'])
             ->first();
         if (!$orderProducts) {
@@ -140,50 +157,51 @@ class MainController extends Controller
         ]);
     }
 
-    public function changePassword(){
+    public function changePassword()
+    {
 
     }
 
 
-    public function updateProfile(string $lang,ProfileRequest $request){
-    
+    public function updateProfile(string $lang, ProfileRequest $request)
+    {
+
         $localization = Localization::where('abbreviation', $lang)->first();
 
-        $user=User::find(auth()->user()->id);
-        $userLanguage=UserLanguage::where(['language_id'=>$localization->id,'user_id'=>auth()->user()->id])->first();
-        if($userLanguage){
-          $userLanguage->update([
-            'first_name'=>$request['first_name'],
-            'last_name'=>$request['last_name'],
-            'address'=>$request['address']
-          ]);
+        $user = User::find(auth()->user()->id);
+        $userLanguage = UserLanguage::where(['language_id' => $localization->id, 'user_id' => auth()->user()->id])->first();
+        if ($userLanguage) {
+            $userLanguage->update([
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'address' => $request['address']
+            ]);
+        } else {
+            UserLanguage::create([
+                'language_id' => $localization->id,
+                'user_id' => auth()->user()->id,
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'address' => $request['address']
+            ]);
         }
-        else{
-          UserLanguage::create([
-            'language_id'=>$localization->id,
-            'user_id'=>auth()->user()->id,
-            'first_name'=>$request['first_name'],
-            'last_name'=>$request['last_name'],
-            'address'=>$request['address']
-          ]);
-    }
 
 
-        return redirect()->route('myAccount',$lang)->with('success','პროფილი წარმატებულად განახლდა');
+        return redirect()->route('myAccount', $lang)->with('success', 'პროფილი წარმატებულად განახლდა');
 
     }
 
-    public function changeUserPassword(string $lang,PasswordRequest $request){
-        $user=User::find(auth()->user()->id);
-        $userUpdate=$user->update([
-           'password'=> Hash::make($request->new_password)
+    public function changeUserPassword(string $lang, PasswordRequest $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $userUpdate = $user->update([
+            'password' => Hash::make($request->new_password)
         ]);
 
-        if($userUpdate){
-           return redirect()->route('myAccount',$lang)->with('success','პაროლი წარმატებულად შეიცვალა');
+        if ($userUpdate) {
+            return redirect()->route('myAccount', $lang)->with('success', 'პაროლი წარმატებულად შეიცვალა');
         }
-        return redirect()->route('myAccount',$lang)->with('dange','პაროლი არ შეიცვალა');
-
+        return redirect()->route('myAccount', $lang)->with('dange', 'პაროლი არ შეიცვალა');
 
 
     }

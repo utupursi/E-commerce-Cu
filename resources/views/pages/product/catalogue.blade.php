@@ -128,7 +128,7 @@
                                                 @endif
                                             </h3>
                                             <br>
-                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                            <a class="btn" href="{{route('productBuy',[app()->getLocale(),$product->id])}}"><i class="fa fa-shopping-cart"></i>Buy Now</a>
                                         </div>
                                     </div>
                                 </div>

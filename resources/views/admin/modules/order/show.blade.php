@@ -34,7 +34,7 @@
                             @if($order->address)
                                 <tr>
                                     <th>{{__('admin.address')}}</th>
-                                    <td><?= $order->address?></td>
+                                    <td>{!!$order->address!!}</td>
                                 </tr>
                             @endif
 
